@@ -1,0 +1,231 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../paper-input/all-imports.html">
+<link rel="import" href="../paper-button/paper-button.html">
+
+<dom-module id="front-test">
+    <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+    /**********FORMS*************/
+
+    #form {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    #formp {
+        width: 70%
+    }
+
+    #formp input {
+        padding: 0.5rem;
+        width: 60%;
+        margin-left: 20%;
+        font-size: 0.7rem;
+        border-radius: 6px;
+        border: none;
+        background-color: white;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+    #formb{
+      width: 5%;
+      float: right;
+    }
+
+
+
+    /**********BOTON ADD*************/
+
+    .todo-btn,
+    .todo-remove-btn {
+        padding: 0;
+        width: 2rem;
+        background: transparent;
+        border-color: transparent;
+        outline: none;
+        cursor: pointer;
+        transition: all 0.5s ease;
+    }
+
+    .todo-btn:focus,
+    .todo-remove-btn:focus {
+        outline: none;
+    }
+
+    .todo-btn:hover{
+        background-color: white;
+        border-radius: 99px;
+    }
+    .todo-remove-btn:hover{
+        background-color: white;
+        border-radius: 6px;
+
+    }
+
+    .todo-remove-btn {
+        float: right;
+    }
+
+    .trash-btn {
+        width: 2rem;
+        background: transparent;
+        border-color: transparent;
+        outline: none;
+        cursor: pointer;
+        transition: all 0.5s ease;
+    }
+
+    .trash-btn:hover {
+        background-color: rgb(255, 103, 103);
+        border-radius: 99px;
+    }
+
+    .trash-btn:focus {
+        outline: none;
+    }
+
+    /***********LISTA***************/
+
+    .encab {
+        width: 70%;
+        height: 3rem;
+        margin: 0 auto;
+        border: 1.5px solid #fff;
+        padding: 0.5rem;
+        border-radius: 6px 6px 0px 0px;
+        background: rgba(0, 123, 255, .5);
+    }
+
+    .todo-container {
+        width: 70%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /*border-radius: 0px 0px 6px 6px;*/
+        background: white;
+    }
+
+    .todo-list {
+        width: 100%;
+        list-style: none;
+    }
+
+    .todo {
+        margin: 0.5rem;
+        background: #fff;
+        color: black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.5s ease;
+        border-bottom: 1px solid rgba(0, 123, 255, .5);
+    }
+
+    .todo li {
+        flex: 1;
+    }
+
+    .todo-item {
+        padding: 0rem 0.5rem;
+    }
+
+    #add,
+    #remove {
+        pointer-events: none;
+    }
+
+    .completed {
+        text-decoration: line-through;
+        opacity: 0.5;
+    }
+
+    /*ANIMACION*/
+
+    .fall {
+        transform: translateY(8rem) rotateZ(10deg);
+        opacity: 0;
+    }
+
+
+    </style>
+
+    <!--AQUI EMPIEZA TU CODIGO-->
+      <div id="form">
+              <paper-input type="text" class="todo-input" placeholder=":)" id="inputvalor" value="{{valor1}}"></paper-input>
+              <button class="todo-btn" type="submit" on-click="algo"><img src="img/add.svg"></button>
+      </div>
+      <div class="encab">
+          ToDo List by Iron Bit
+          <button class="todo-remove-btn"><img src="img/recycle-bin.svg" width="30rem"></button></form>
+      </div>
+      <div class="todo-container">
+          <ul class="todo-list">
+              <div id="algo"></div>
+          </ul>
+      </div>
+    <!--AQUI TERMINA TU CODIGO-->
+    </template>
+
+    <script>
+        /**
+         * `front-test`
+         * prueba front end test
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class FrontTest extends Polymer.Element {
+            static get is() {
+                return 'front-test';
+            }
+            static get properties() {
+                return {
+                    prop1: {
+                        type: String,
+                        value: 'Front End Test'
+                    },
+                    valor1: {
+                        type: String,
+                        value: '',
+                        notify: true
+                    }
+                };
+            }
+
+            algo(e) {
+                e.preventDefault();
+                let traevalor = this.$.inputvalor.value;
+                let algo = this.$.algo;
+
+                if (traevalor != '') {
+                    this.agregaactividad(traevalor);
+                    this.$.inputvalor.value = "";
+                    console.log(this.agregaactividad);
+                    console.log(traevalor);
+                    algo.innerText = traevalor;
+                }
+            }
+            agregaactividad(content) {
+                this.dispatchEvent(new CustomEvent('FrontEnd', {
+                    detail: {
+                        content: content
+                    },
+                    bubbles: true,
+                    composed: true
+                }))
+            }
+        }
+
+        window.customElements.define(FrontTest.is, FrontTest);
+    </script>
+</dom-module>
