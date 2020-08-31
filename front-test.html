@@ -34,7 +34,7 @@
 
     /**********BOTON ADD*************/
 
-    .todo-btn {
+    .todo-btn,.todo-remove-btn {
         padding: 0;
         width: 2rem;
         background: transparent;
@@ -44,13 +44,22 @@
         transition: all 0.5s ease;
     }
 
-    .todo-btn:focus{
+    .todo-btn:focus,.todo-remove-btn:focus{
         outline: none;
     }
 
     .todo-btn:hover{
         background-color: white;
         border-radius: 99px;
+    }
+
+    .todo-remove-btn:hover{
+        background-color: white;
+        border-radius: 6px;
+
+    }
+    .todo-remove-btn {
+        float: right;
     }
     /***********LISTA***************/
 
